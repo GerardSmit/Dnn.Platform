@@ -299,12 +299,6 @@ namespace DotNetNuke.Framework
                 AJAX.AddScriptManager(this, !isInstallPage);
             }
 
-            var dnncoreFilePath = HttpContext.Current.IsDebuggingEnabled
-                   ? "~/js/Debug/dnncore.js"
-                   : "~/js/dnncore.js";
-
-            ClientResourceManager.RegisterScript(this, dnncoreFilePath);
-
             base.OnInit(e);
         }
 

@@ -675,6 +675,9 @@ namespace DotNetNuke.Framework
                 }
             }
 
+            //add JS links
+            ClientResourceManager.RegisterDnnCoreScript(this, HttpContext.Current.IsDebuggingEnabled ? "~/js/Debug/dnncore.js" : "~/js/dnncore.js");
+
             //add CSS links
             ClientResourceManager.RegisterDefaultStylesheet(this, string.Concat(Globals.ApplicationPath, "/Resources/Shared/stylesheets/dnndefault/7.0.0/default.css"));
             ClientResourceManager.RegisterIEStylesheet(this, string.Concat(Globals.HostPath, "ie.css"));

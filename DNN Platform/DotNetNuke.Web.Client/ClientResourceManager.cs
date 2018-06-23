@@ -245,6 +245,11 @@ namespace DotNetNuke.Web.Client.ClientResourceManagement
             RegisterStyleSheet(page, filePath, (int)FileOrder.Css.DefaultCss, DefaultCssProvider, "dnndefault", "7.0.0");
         }
 
+        public static void RegisterDnnCoreScript(Page page, string filePath)
+        {
+            RegisterScript(page, filePath, 1, DefaultJsProvider, "dnncore", "1.0.0");
+        }
+
         public static void RegisterFeatureStylesheet(Page page, string filePath)
         {
             RegisterStyleSheet(page, filePath, FileOrder.Css.FeatureCss);
