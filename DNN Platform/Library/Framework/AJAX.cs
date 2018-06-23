@@ -21,11 +21,16 @@
 #region Usings
 
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using DotNetNuke.Entities.Host;
+using DotNetNuke.Entities.Modules;
+using DotNetNuke.Entities.Tabs;
+using DotNetNuke.Entities.Users;
+using DotNetNuke.Security.Permissions;
 using DotNetNuke.UI.WebControls;
 
 #endregion
@@ -59,12 +64,17 @@ namespace DotNetNuke.Framework
                 {
                     try
                     {
+                        // Ajax should always be enabled if the DNN PersonaBar is visible.
+                        // The current way is to check if the user has edit rights on the page since DNN PersonaBar is not open-source (yet).
+                        var enableAjax = UserController.Instance.GetCurrentUserInfo().IsSuperUser
+                                         || TabController.CurrentPage.Modules.Cast<ModuleInfo>().Any(m => ModulePermissionController.HasModulePermission(m.ModulePermissions, "EDIT"));
+
                         using (var scriptManager = new ScriptManager //RadScriptManager
                                 {
                                     ID = "ScriptManager",
-                                    EnableScriptGlobalization = true,
-                                    SupportsPartialRendering = true
-                                })
+                                    EnableScriptGlobalization = enableAjax,
+                                    SupportsPartialRendering = enableAjax
+                        })
                         {
                             if (checkCdn)
                             {
